@@ -1,13 +1,155 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>MP1</title>
-    </head>
-    <body>
-        <h1>Hello World! Welcome to MP1!</h1>
-        <img src="assets/image.jpg">
-    </body>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sajib Zaman – MP1</title>
+
+</head>
+
+<body>
+
+    <!-- HEADER / HERO -->
+    <header id="hero">
+        <nav id="navbar">
+            <div class="logo">Sajib Zaman</div>
+            <ul>
+                <li><a href="#about">About</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#blog">Blog</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="socials">
+                <a href="#"><i class="fab fa-linkedin"></i></a>
+                <a href="#"><i class="fab fa-github"></i></a>
+                <a href="#"><i class="fab fa-facebook"></i></a>
+            </div>
+        </nav>
+
+        <!-- HERO CAROUSEL -->
+        <div class="hero-carousel">
+            <div class="hero-slide active">
+                <img src="assets/bear.jpg" alt="Hero Slide 1">
+                <div class="caption">
+                    <h1>Welcome to My Website</h1>
+                    <p>PhD Candidate | mHealth Researcher | Designer</p>
+                </div>
+            </div>
+            <div class="hero-slide">
+                <img src="assets/dog.jpg" alt="Hero Slide 2">
+                <div class="caption">
+                    <h1>Welcome to My Website</h1>
+                    <p>PhD Candidate | mHealth Researcher | Designer</p>
+                </div>
+            </div>
+            <div class="hero-slide">
+                <img src="assets/horse.jpg" alt="Hero Slide 3">
+                <div class="caption">
+                    <h1>Welcome to My Website</h1>
+                    <p>PhD Candidate | mHealth Researcher | Designer</p>
+                </div>
+            </div>
+
+            <!-- Navigation -->
+            <button class="hero-prev">&#10094;</button>
+            <button class="hero-next">&#10095;</button>
+        </div>
+    </header>
+
+    <!-- ABOUT -->
+    <section id="about">
+        <div class="container">
+            <div class="about-img">
+                <img src="assets/IMG_6403_cropped_200 kb.jpg" alt="Profile Photo">
+            </div>
+            <div class="about-text">
+                <h2>About Me</h2>
+                <p>I am a PhD candidate in Community Health at the University of Illinois Urbana-Champaign. I work with
+                    Dr. Chung-Yi Chiu, in the area of digital health interventions and human-computer interaction for
+                    health. My research focuses on designing patient portals and mHealth solutions that support digital
+                    health-seeking behavior, self-efficacy, and sustained engagement.
+                </p>
+                <p>I have developed digital platforms and conducted implementation research projects in Bangladesh. Now
+                    I have been contributing to multiple NIH-funded projects on AI-supported health tools. Before being
+                    involved in public health interventions, I completed my bachelor in dentistry and was a licensed
+                    dentist in Bangladesh.
+                </p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects">
+        <h2>Projects</h2>
+        <div class="carousel">
+            <div class="slide active"><img src="https://via.placeholder.com/600x300" alt="Project 1"></div>
+            <div class="slide"><img src="https://via.placeholder.com/600x300" alt="Project 2"></div>
+            <div class="slide"><img src="https://via.placeholder.com/600x300" alt="Project 3"></div>
+            <button class="prev">&#10094;</button>
+            <button class="next">&#10095;</button>
+        </div>
+        <div class="project-grid">
+            <div class="card">Project A</div>
+            <div class="card">Project B</div>
+            <div class="card">Project C</div>
+        </div>
+    </section>
+
+    <!-- BLOG -->
+    <section id="blog">
+        <h2>Blog</h2>
+        <div class="blog-grid">
+            <article class="blog-card">
+                <h3>News Post 1</h3>
+                <p>Latest update on my research journey.</p>
+            </article>
+            <article class="blog-card">
+                <h3>News Post 2 (with video)</h3>
+                <video controls width="100%">
+                    <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+                    Your browser does not support video.
+                </video>
+            </article>
+            <article class="blog-card">
+                <h3>News Post 3</h3>
+                <p>Reflections and lessons learned from projects.</p>
+            </article>
+        </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+        <h2>Contact Me</h2>
+        <button id="openModal">Open Contact Form</button>
+    </section>
+
+    <!-- MODAL -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h3>Contact Form</h3>
+            <form>
+                <input type="text" placeholder="Your Name" required><br>
+                <input type="email" placeholder="Your Email" required><br>
+                <textarea placeholder="Message" required></textarea><br>
+                <button type="submit">Send</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>© 2025 Sajib Zaman</p>
+        <div class="footer-socials">
+            <a href="#"><i class="fab fa-linkedin"></i></a>
+            <a href="#"><i class="fab fa-github"></i></a>
+            <a href="#"><i class="fab fa-facebook"></i></a>
+        </div>
+    </footer>
+
+</body>
+
 </html>
