@@ -1,92 +1,123 @@
-console.log("JavaScript is working!");
+document.addEventListener("DOMContentLoaded", () => {
+    console.log("JavaScript is working!");
 
-// Navbar shrink on scroll
-window.addEventListener("scroll", function () {
+    // ------------------------------
+    // Navbar shrink on scroll
+    // ------------------------------
     const navbar = document.getElementById("navbar");
-    if (window.scrollY > 50) {
-        navbar.classList.add("shrink");
-    } else {
-        navbar.classList.remove("shrink");
-    }
-});
 
-// scrolling
-document.querySelectorAll('#navbar a').forEach(anchor => {
-    anchor.addEventListener("click", function (e) {
-        e.preventDefault();
-        const id = this.getAttribute("href");
-        const section = document.querySelector(id);
-        section.scrollIntoView({
-            behavior: "smooth"
+    window.addEventListener("scroll", () => {
+        if (window.scrollY > 50) {
+            navbar.classList.add("shrink");
+        } else {
+            navbar.classList.remove("shrink");
+        }
+    });
+
+    // Helper: get navbar height
+    function getNavHeight() {
+        return navbar.getBoundingClientRect().height;
+    }
+
+    // Smooth scrolling with nav offset
+    document.querySelectorAll('#navbar ul a').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            const id = this.getAttribute("href").slice(1);
+            const section = document.getElementById(id);
+            const y = window.scrollY + section.getBoundingClientRect().top - getNavHeight();
+            window.scrollTo({ top: y, behavior: "smooth" });
         });
     });
-});
-// Hero Carousel
-let heroIndex = 0;
-const heroSlides = document.querySelectorAll(".hero-slide");
 
-const showHeroSlide = (n) => {
-    heroSlides.forEach(s => s.classList.remove("active"));
-    heroSlides[n].classList.add("active");
-};
+    // ------------------------------
+    // Hero Carousel
+    // ------------------------------
+    let heroIndex = 0;
+    const heroSlides = document.querySelectorAll(".hero-slide");
 
-document.querySelector(".hero-next").addEventListener("click", () => {
-    heroIndex = (heroIndex + 1) % heroSlides.length;
-    showHeroSlide(heroIndex);
-});
+    function showHeroSlide(n) {
+        heroSlides.forEach(s => s.classList.remove("active"));
+        heroSlides[n].classList.add("active");
+    }
 
-document.querySelector(".hero-prev").addEventListener("click", () => {
-    heroIndex = (heroIndex - 1 + heroSlides.length) % heroSlides.length;
-    showHeroSlide(heroIndex);
-});
-
-// Initialize
-showHeroSlide(heroIndex);
-
-// Carousel
-let slideIndex = 0;
-const slides = document.querySelectorAll(".slide");
-const showSlide = (n) => {
-    slides.forEach(slide => slide.classList.remove("active"));
-    slides[n].classList.add("active");
-};
-document.querySelector(".next").addEventListener("click", () => {
-    slideIndex = (slideIndex + 1) % slides.length;
-    showSlide(slideIndex);
-});
-document.querySelector(".prev").addEventListener("click", () => {
-    slideIndex = (slideIndex - 1 + slides.length) % slides.length;
-    showSlide(slideIndex);
-});
-showSlide(slideIndex);
-
-// Modal
-const modal = document.getElementById("modal");
-const openBtn = document.getElementById("openModal");
-const closeBtn = document.querySelector(".close");
-
-openBtn.addEventListener("click", () => { modal.style.display = "flex"; });
-closeBtn.addEventListener("click", () => { modal.style.display = "none"; });
-window.addEventListener("click", (e) => {
-    if (e.target == modal) modal.style.display = "none";
-});
-
-// Position indicator (highlight navbar links on scroll)
-const sections = document.querySelectorAll("section");
-const navLinks = document.querySelectorAll("#navbar ul li a");
-
-window.addEventListener("scroll", () => {
-
-    let current = "";
-    sections.forEach(section => {
-        const sectionTop = section.offsetTop - 100;
-
-        if (scrollY >= sectionTop) current = section.getAttribute("id");
+    document.querySelector(".hero-next").addEventListener("click", () => {
+        heroIndex = (heroIndex + 1) % heroSlides.length;
+        showHeroSlide(heroIndex);
     });
-    navLinks.forEach(link => {
-        link.classList.remove("active");
-        if (link.getAttribute("href") === `#${current}`) {
-            link.classList.add("active");
+
+    document.querySelector(".hero-prev").addEventListener("click", () => {
+        heroIndex = (heroIndex - 1 + heroSlides.length) % heroSlides.length;
+        showHeroSlide(heroIndex);
+    });
+
+    showHeroSlide(heroIndex); // Initialize
+
+    // ------------------------------
+    // Universal Modal System
+    // ------------------------------
+    const openModalButtons = document.querySelectorAll(".open-modal");
+    const modals = document.querySelectorAll(".modal");
+
+    // Open modal
+    openModalButtons.forEach(btn => {
+        btn.addEventListener("click", () => {
+            const modalId = btn.getAttribute("data-modal");
+            const modal = document.getElementById(modalId);
+            if (modal) modal.style.display = "flex";
+        });
+    });
+
+    // Close modal when clicking on "X"
+    modals.forEach(modal => {
+        const closeBtn = modal.querySelector(".close");
+        if (closeBtn) {
+            closeBtn.addEventListener("click", () => {
+                modal.style.display = "none";
+            });
         }
+    });
+
+    // Close modal when clicking outside content
+    window.addEventListener("click", (e) => {
+        modals.forEach(modal => {
+            if (e.target === modal) {
+                modal.style.display = "none";
+            }
+        });
+    });
+
+    // Close modal with ESC key
+    window.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") {
+            modals.forEach(modal => (modal.style.display = "none"));
+        }
+    });
+
+    // ------------------------------
+    // Position Indicator
+    // ------------------------------
+    const sections = document.querySelectorAll("section");
+    const navLinks = document.querySelectorAll("#navbar ul li a");
+
+    window.addEventListener("scroll", () => {
+        let current = "";
+        const navH = getNavHeight();
+
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop - navH - 10;
+            if (scrollY >= sectionTop) current = section.getAttribute("id");
+        });
+
+        if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+            current = sections[sections.length - 1].id;
+        }
+
+        navLinks.forEach(link => {
+            link.classList.remove("active");
+            if (link.getAttribute("href") === `#${current}`) {
+                link.classList.add("active");
+            }
+        });
     });
 });

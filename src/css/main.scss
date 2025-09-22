@@ -121,6 +121,17 @@ h3 {
             z-index: -1;
         }
 
+        &::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.75);
+            z-index: 0;
+        }
+
         .caption {
             background: rgba(0, 0, 0, 0);
             color: white;
@@ -132,7 +143,7 @@ h3 {
         }
     }
 
-    .active {
+    .hero-slide.active {
         display: flex;
         justify-content: center;
         align-items: center;
@@ -174,6 +185,7 @@ h3 {
         flex: 2;
         padding: 1rem;
         animation: fadeIn 2s ease;
+        color: $primary-color;
 
         p {
             margin-bottom: 1rem;
@@ -191,82 +203,206 @@ h3 {
     }
 }
 
+// Mixin for smooth transitions
+@mixin smooth-transition {
+    transition: all 0.3s ease;
+}
+
+.fixed-bg {
+    background-image: url("../assets/IMG_20220614_103428.jpg"); // adjust path if needed
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    position: relative;
+    height: 40vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+    .overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.65);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        color: #fff;
+        padding: 2rem;
+    }
+
+
+    h2 {
+        font-size: 1.8rem;
+        font-style: italic;
+        font-weight: 400;
+        margin-bottom: 1rem;
+    }
+
+    p {
+        font-size: 1.2rem;
+        font-style: italic;
+        font-weight: 300;
+        opacity: 0.9;
+    }
+}
+
 // Projects
 #projects {
     padding: 3rem 2rem;
-    text-align: center;
+    background: #f9f9f9;
 
-    .carousel {
-        position: relative;
-        max-width: 600px;
-        margin: 1rem auto;
-        overflow: hidden;
-
-        .slide {
-            display: none;
-
-            img {
-                width: 100%;
-            }
-        }
-
-        .active {
-            display: block;
-        }
-
-        button {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: $primary-color;
-            color: white;
-            border: none;
-            padding: 0.5rem 1rem;
-            cursor: pointer;
-
-            &.prev {
-                left: 0;
-            }
-
-            &.next {
-                right: 0;
-            }
-        }
+    h2 {
+        text-align: center;
+        font-size: 2rem;
+        margin-bottom: 2rem;
+        color: $primary-color;
     }
 
+    // Grid Layout
     .project-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        gap: 1rem;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 1.5rem;
         margin-top: 2rem;
 
         .card {
-            padding: 1rem;
-            background: $light-color;
-            border-radius: 5px;
+            position: relative;
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            overflow: hidden;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+            &:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            }
+
+            img {
+                width: 100%;
+                aspect-ratio: 3/2;
+                object-fit: cover;
+            }
+
+            h3 {
+                margin: 1rem 0 0.5rem;
+                font-size: 1.2rem;
+                color: #34495e;
+            }
+
+            p {
+                font-size: 0.95rem;
+                padding: 0 1rem;
+                margin-bottom: 1rem;
+                color: #555;
+            }
+
+            button {
+                margin-bottom: 1rem;
+                padding: 0.5rem 1rem;
+                background: #2c3e50;
+                color: #fff;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                transition: background 0.3s;
+
+                &:hover {
+                    background: #3498db;
+                }
+            }
+
+            // Expandable details section
+            .card-details {
+                max-height: 0;
+                overflow: hidden;
+                opacity: 0;
+                transition: max-height 0.6s ease, opacity 0.6s ease;
+                padding: 0 1rem;
+            }
+
+            .card.expanded .card-details {
+                opacity: 1;
+                margin-top: 0.5rem;
+            }
         }
     }
 }
 
-// Blog
-#blog {
+// Latest Updates
+#latest-updates {
     padding: 3rem 2rem;
-    background: #f9f9f9;
+    background: $light-color;
 
-    .blog-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 1.5rem;
+    h2 {
+        text-align: center;
+        font-size: 2rem;
+        margin-bottom: 2rem;
+        color: $light-color;
     }
 
-    .blog-card {
-        background: white;
-        padding: 1rem;
-        border: 1px solid #ddd;
-        transition: $transition;
+    .blog-layout {
+        display: grid;
+        grid-template-columns: 2fr 1fr; // feature post wider
+        gap: 2rem;
 
-        &:hover {
-            transform: translateY(-5px);
+        @media (max-width: 900px) {
+            grid-template-columns: 1fr; // stack on small screens
+        }
+    }
+
+    .feature-post {
+        background: #fff;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        padding: 1.5rem;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+        h3 {
+            margin-bottom: 0.5rem;
+            color: #34495e;
+        }
+
+        p {
+            margin-bottom: 1rem;
+            color: #555;
+        }
+
+        video {
+            width: 100%;
+            border-radius: 6px;
+            margin-top: 1rem;
+        }
+    }
+
+    .side-posts {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+
+        .blog-card {
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 1rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+            h3 {
+                margin-bottom: 0.5rem;
+                color: #34495e;
+            }
+
+            p {
+                color: #555;
+                font-size: 0.95rem;
+            }
         }
     }
 }
@@ -275,6 +411,32 @@ h3 {
 #contact {
     padding: 3rem 2rem;
     text-align: center;
+    background-color: #f9f9f9;
+
+    h2 {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+        color: #2c3e50;
+    }
+
+    p {
+        margin-bottom: 1rem;
+        color: #555
+    }
+
+    button {
+        padding: 0.75rem 1.5rem;
+        background: #2c3e50;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background 0.3s;
+
+        &:hover {
+            background: #3498db;
+        }
+    }
 }
 
 .modal {
