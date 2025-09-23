@@ -1,11 +1,10 @@
 @import "~@fortawesome/fontawesome-free/css/all.min.css";
-// Variables
+
 $primary-color: #2c3e50;
 $accent-color: #3498db;
 $light-color: #ecf0f1;
 $transition: all 0.3s ease;
 
-// Global
 * {
     margin: 0;
     padding: 0;
@@ -23,7 +22,6 @@ h3 {
     margin-bottom: 1rem;
 }
 
-// Navbar
 #navbar {
     position: fixed;
     top: 0;
@@ -81,9 +79,7 @@ h3 {
     font-size: 0.9rem;
 }
 
-// Hero
 #hero {
-    //background: url("../assets/bear.jpg") no-repeat center center/cover fixed;
     color: white;
     height: 100vh;
     display: flex;
@@ -136,7 +132,6 @@ h3 {
             background: rgba(0, 0, 0, 0);
             color: white;
             padding: 1rem 2rem;
-            border-radius: 5px;
             font-size: 1.5rem;
             text-align: center;
             z-index: 1;
@@ -174,7 +169,6 @@ h3 {
     }
 }
 
-// About
 #about .container {
     display: flex;
     justify-content: space-around;
@@ -203,13 +197,8 @@ h3 {
     }
 }
 
-// Mixin for smooth transitions
-@mixin smooth-transition {
-    transition: all 0.3s ease;
-}
-
 .fixed-bg {
-    background-image: url("../assets/IMG_20220614_103428.jpg"); // adjust path if needed
+    background-image: url("../assets/IMG_20220614_103428.jpg");
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
@@ -235,7 +224,6 @@ h3 {
         padding: 2rem;
     }
 
-
     h2 {
         font-size: 1.8rem;
         font-style: italic;
@@ -251,7 +239,6 @@ h3 {
     }
 }
 
-// Projects
 #projects {
     padding: 3rem 2rem;
     background: #f9f9f9;
@@ -263,7 +250,6 @@ h3 {
         color: $primary-color;
     }
 
-    // Grid Layout
     .project-grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -271,7 +257,6 @@ h3 {
         margin-top: 2rem;
 
         .card {
-            position: relative;
             background: #fff;
             border: 1px solid #ddd;
             border-radius: 10px;
@@ -307,7 +292,7 @@ h3 {
             button {
                 margin-bottom: 1rem;
                 padding: 0.5rem 1rem;
-                background: #2c3e50;
+                background: $primary-color;
                 color: #fff;
                 border: none;
                 border-radius: 4px;
@@ -315,11 +300,10 @@ h3 {
                 transition: background 0.3s;
 
                 &:hover {
-                    background: #3498db;
+                    background: $accent-color;
                 }
             }
 
-            // Expandable details section
             .card-details {
                 max-height: 0;
                 overflow: hidden;
@@ -336,7 +320,6 @@ h3 {
     }
 }
 
-// Latest Updates
 #latest-updates {
     padding: 3rem 2rem;
     background: $light-color;
@@ -345,20 +328,25 @@ h3 {
         text-align: center;
         font-size: 2rem;
         margin-bottom: 2rem;
-        color: $light-color;
+        color: $primary-color;
     }
 
     .blog-layout {
         display: grid;
-        grid-template-columns: 2fr 1fr; // feature post wider
+        grid-template-columns: 2fr 1fr;
         gap: 2rem;
 
-        @media (max-width: 900px) {
-            grid-template-columns: 1fr; // stack on small screens
+        @media (max-width: 1366px) {
+            grid-template-columns: 1fr;
+        }
+
+        @media (max-width: 1024px) {
+            grid-template-columns: 1fr;
         }
     }
 
     .feature-post {
+        order: 1;
         background: #fff;
         border: 1px solid #ddd;
         border-radius: 10px;
@@ -386,6 +374,7 @@ h3 {
         display: flex;
         flex-direction: column;
         gap: 1.5rem;
+        order: 2;
 
         .blog-card {
             background: #fff;
@@ -402,12 +391,12 @@ h3 {
             p {
                 color: #555;
                 font-size: 0.95rem;
+                margin-bottom: 0.5rem;
             }
         }
     }
 }
 
-// Contact + Modal
 #contact {
     padding: 3rem 2rem;
     text-align: center;
@@ -416,7 +405,7 @@ h3 {
     h2 {
         font-size: 2rem;
         margin-bottom: 1rem;
-        color: #2c3e50;
+        color: $primary-color;
     }
 
     p {
@@ -426,7 +415,7 @@ h3 {
 
     button {
         padding: 0.75rem 1.5rem;
-        background: #2c3e50;
+        background: $primary-color;
         color: #fff;
         border: none;
         border-radius: 4px;
@@ -434,7 +423,7 @@ h3 {
         transition: background 0.3s;
 
         &:hover {
-            background: #3498db;
+            background: $accent-color;
         }
     }
 }
@@ -475,7 +464,6 @@ h3 {
     }
 }
 
-// Footer
 footer {
     padding: 1rem;
     text-align: center;
@@ -492,7 +480,6 @@ footer {
     }
 }
 
-// Animations
 @keyframes fadeIn {
     from {
         opacity: 0;

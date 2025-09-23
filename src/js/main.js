@@ -1,11 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
-    console.log("JavaScript is working!");
-
-    // ------------------------------
-    // Navbar shrink on scroll
-    // ------------------------------
     const navbar = document.getElementById("navbar");
 
+    // Navbar shrink on scroll
     window.addEventListener("scroll", () => {
         if (window.scrollY > 50) {
             navbar.classList.add("shrink");
@@ -14,25 +10,25 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // Helper: get navbar height
+    // Helper: current navbar height
     function getNavHeight() {
         return navbar.getBoundingClientRect().height;
     }
 
-    // Smooth scrolling with nav offset
+    // Smooth scrolling with offset
     document.querySelectorAll('#navbar ul a').forEach(anchor => {
-        anchor.addEventListener("click", function (e) {
+        anchor.addEventListener("click", e => {
             e.preventDefault();
-            const id = this.getAttribute("href").slice(1);
+            const id = anchor.getAttribute("href").slice(1);
             const section = document.getElementById(id);
-            const y = window.scrollY + section.getBoundingClientRect().top - getNavHeight();
-            window.scrollTo({ top: y, behavior: "smooth" });
+            if (section) {
+                const y = window.scrollY + section.getBoundingClientRect().top - getNavHeight();
+                window.scrollTo({ top: y, behavior: "smooth" });
+            }
         });
     });
 
-    // ------------------------------
-    // Hero Carousel
-    // ------------------------------
+    // Hero carousel
     let heroIndex = 0;
     const heroSlides = document.querySelectorAll(".hero-slide");
 
@@ -51,15 +47,12 @@ document.addEventListener("DOMContentLoaded", () => {
         showHeroSlide(heroIndex);
     });
 
-    showHeroSlide(heroIndex); // Initialize
+    showHeroSlide(heroIndex);
 
-    // ------------------------------
-    // Universal Modal System
-    // ------------------------------
+    // Modals
     const openModalButtons = document.querySelectorAll(".open-modal");
     const modals = document.querySelectorAll(".modal");
 
-    // Open modal
     openModalButtons.forEach(btn => {
         btn.addEventListener("click", () => {
             const modalId = btn.getAttribute("data-modal");
@@ -68,7 +61,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // Close modal when clicking on "X"
     modals.forEach(modal => {
         const closeBtn = modal.querySelector(".close");
         if (closeBtn) {
@@ -78,25 +70,19 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // Close modal when clicking outside content
-    window.addEventListener("click", (e) => {
+    window.addEventListener("click", e => {
         modals.forEach(modal => {
-            if (e.target === modal) {
-                modal.style.display = "none";
-            }
+            if (e.target === modal) modal.style.display = "none";
         });
     });
 
-    // Close modal with ESC key
-    window.addEventListener("keydown", (e) => {
+    window.addEventListener("keydown", e => {
         if (e.key === "Escape") {
             modals.forEach(modal => (modal.style.display = "none"));
         }
     });
 
-    // ------------------------------
-    // Position Indicator
-    // ------------------------------
+    // Position indicator
     const sections = document.querySelectorAll("section");
     const navLinks = document.querySelectorAll("#navbar ul li a");
 
@@ -106,7 +92,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         sections.forEach(section => {
             const sectionTop = section.offsetTop - navH - 10;
-            if (scrollY >= sectionTop) current = section.getAttribute("id");
+            if (scrollY >= sectionTop) current = section.id;
         });
 
         if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
